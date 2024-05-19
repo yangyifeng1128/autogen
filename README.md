@@ -38,10 +38,43 @@ conda activate autogen
 (autogen) pip install -r requirements.txt
 ```
 
-启动服务器：
+启动 uvicorn 服务器：
 
 ```bash
 (autogen) mkdir /root/logs/autogen
 (autogen) touch /root/logs/autogen/access.log
-(autogen) nohup uvicorn app.main:app --host 0.0.0.0 --port 6100 > /root/logs/autogen/access.log 2>&1 &
+(autogen) nohup uvicorn app.main:app --host 0.0.0.0 --port 6001 > /root/logs/autogen/access.log 2>&1 &
+```
+
+### 1.1.3 配置 Nginx 服务器
+
+安装 Nginx 服务器：
+
+```bash
+sudo apt-get install nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+```
+
+新建 `/etc/nginx/conf.d/autogen.conf` 文件：
+
+```nginx
+server {
+  listen 80;
+
+  server_name autogen;
+
+  location /autogen/ {
+    proxy_pass http://127.0.0.1:6001/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Nginx-Proxy true;
+    proxy_redirect off;
+  }
+}
 ```
