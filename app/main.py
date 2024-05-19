@@ -17,7 +17,7 @@ app.include_router(v2_router)
 socket_manager = SocketManager()
 
 
-@app.websocket("/autogen/{chat_id}")
+@app.websocket("/{chat_id}")
 async def socket_endpoint(
     socket: WebSocket,
     chat_id: str,
