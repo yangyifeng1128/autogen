@@ -1,0 +1,2 @@
+[MAIN]
+disable=broad-exception-caught,invalid-name,global-statement,line-too-long,missing-class-docstring,missing-function-docstring,missing-module-docstring
