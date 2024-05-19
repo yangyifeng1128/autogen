@@ -78,3 +78,14 @@ server {
   }
 }
 ```
+
+## 1.2 测试 API 接口
+
+使用 Postman 连接下述地址：
+
+```bash
+ws://ai.xinqueyun.com/autogen/{chat_id}
+# 其中 chat_id 用于标记一次聊天对话
+```
+
+然后向该地址发送 WebSocket 消息即可。
