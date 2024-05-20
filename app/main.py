@@ -1,5 +1,3 @@
-"""主文件"""
-
 from asyncio import gather, sleep
 
 from fastapi import FastAPI, WebSocket

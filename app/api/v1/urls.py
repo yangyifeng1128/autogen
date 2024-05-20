@@ -1,5 +1,3 @@
-"""全部路由"""
-
 from fastapi import APIRouter
 
 from .endpoints.users import router as users_router
